@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2026 at 05:16 PM
+-- Generation Time: May 18, 2026 at 05:48 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -99,7 +99,10 @@ CREATE TABLE `farmers` (
 
 INSERT INTO `farmers` (`farmer_id`, `user_id`, `farm_name`) VALUES
 (1, 5, 'Agang\'s Farm'),
-(2, 6, 'james');
+(2, 6, 'james'),
+(3, 7, 'jeanfarm'),
+(4, 8, 'CrisFarm'),
+(5, 9, 'CrisFarm');
 
 -- --------------------------------------------------------
 
@@ -143,7 +146,8 @@ CREATE TABLE `livestock` (
 --
 
 INSERT INTO `livestock` (`livestock_id`, `tag_number`, `farmer_id`, `location_id`, `category_id`, `breed_id`, `gender`, `health_status`, `date_of_birth`, `date_created`, `sale_status`, `price`, `description`, `livestock_image`, `current_weight`) VALUES
-(3, '1234', 2, 2, 3, NULL, 'Male', 'healthy', '2026-04-01 00:00:00', '2026-04-22 22:13:46', 'Available', 180.00, 'kasjdhkasjhd', NULL, 50.00);
+(7, '123', 4, 3, 4, 14, 'Male', 'healthy', '2026-05-01 00:00:00', '2026-05-18 00:18:28', 'Available', 22222.00, 'dad', NULL, 22.00),
+(8, '12', 4, 3, 5, 17, 'Male', 'healthy', '2026-05-16 00:00:00', '2026-05-18 10:29:56', 'Available', 1234.00, '', 'uploads/livestock/ls_6a0a79a4e00a17.56389577.png', 10.00);
 
 -- --------------------------------------------------------
 
@@ -157,6 +161,15 @@ CREATE TABLE `livestock_weight` (
   `weight` decimal(10,2) DEFAULT NULL,
   `date_recorded` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `livestock_weight`
+--
+
+INSERT INTO `livestock_weight` (`weight_id`, `livestock_id`, `weight`, `date_recorded`) VALUES
+(13, 7, 22.00, '2026-05-18 00:18:28'),
+(14, 8, 12.00, '2026-05-18 10:29:56'),
+(15, 8, 10.00, '2026-05-18 10:30:44');
 
 -- --------------------------------------------------------
 
@@ -184,7 +197,8 @@ CREATE TABLE `location` (
 
 INSERT INTO `location` (`location_id`, `farmer_id`, `location_name`, `description`, `location_type`, `location_brgy`, `location_city_muni`, `location_province`, `location_latitude`, `location_longitude`, `capacity`) VALUES
 (1, 1, 'bacolod farm', '10 for mother pig\r\n1 for bore\r\nthe rest is for fattener', 'Pen', NULL, NULL, NULL, NULL, NULL, 50),
-(2, 2, 'Bacolod Farm Main', 'This farm is located in brgy bacolod, culaba, biliran', 'Pen', NULL, NULL, NULL, NULL, NULL, 60);
+(2, 2, 'Bacolod Farm Main', 'This farm is located in brgy bacolod, culaba, biliran', 'Pen', NULL, NULL, NULL, NULL, NULL, 60),
+(3, 4, 'TheRake', 'the goatssss', 'Barn', 'Rake', 'Tabango', 'Tabango', NULL, NULL, 55);
 
 -- --------------------------------------------------------
 
@@ -248,7 +262,13 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`user_id`, `username`, `user_email`, `user_phone_number`, `password_hash`, `user_role`, `user_last_name`, `user_first_name`, `user_middle_name`, `created_at`, `user_status`, `user_pfp`) VALUES
 (1, '', 'agangaustien@gmail.com', NULL, '$2y$10$56okpC9irwNZA.yBcGb9wObtSe3e6x2pP8lErxWaeN2d4F5gZFBJ.', 'Farmer', 'Agang', 'Austien James', NULL, '2026-04-15 07:11:28', 'Active', NULL),
 (5, 'agang', 'agang@gmail.com', NULL, '$2y$10$NZ6pfoaMmxkLpcy9wBN7KOU0LoJtIHIXqvUPP1xp5Rx5Q9R5VWx1e', 'Farmer', 'Agang', 'Austien James', NULL, '2026-04-18 10:44:20', 'Active', NULL),
-(6, 'james', 'james@gmail.com', NULL, '$2y$10$xw4sX5lKgiPa9yVXMxGzOuzqsLy.8GsXHXinC.TgP2xj7MDRQzbp.', 'Farmer', 'Agang', 'James', NULL, '2026-04-22 22:11:07', 'Active', NULL);
+(6, 'james', 'james@gmail.com', NULL, '$2y$10$xw4sX5lKgiPa9yVXMxGzOuzqsLy.8GsXHXinC.TgP2xj7MDRQzbp.', 'Farmer', 'Agang', 'James', NULL, '2026-04-22 22:11:07', 'Active', NULL),
+(7, 'jean', 'jean@gmail.com', '09123456789', '$2y$10$rTqqthSWhYrv58DXI1UYIePnOl07pD4Y0AtoPiByEIQ/uDQxJN2NW', 'Farmer', 'delacruz', 'jean', 'T', '2026-05-01 14:13:48', 'Active', NULL),
+(8, 'Cris', 'cris@example.com', '09123456789', '$2y$10$BsklV0BihLKbBnpdsmrr6.Lk0/TTw017b5eqRqdbVrmZwKrbar64m', 'Farmer', 'Sydney', 'Cris', 'T', '2026-05-01 14:32:24', 'Active', NULL),
+(9, 'Cris', 'cris@exampl.com', '09123456789', '$2y$10$8Ewm7Bj2HxoZiZto3XRrKe9JqMkFNZe93Fq80awDMvGTqlJrckgKq', 'Farmer', 'Sydney', 'Cr', 'T', '2026-05-01 14:40:02', 'Active', NULL),
+(10, 'Nat', 'nat@gmail.com', '09123456789', '$2y$10$BheyR5tTzXrFaY8HWcZX6u.HrJpFBu3Iy9N2VxJ7DwJIVyQiaGP9u', 'Buyer', 'Pradilla', 'Nathaniel', 'Relente', '2026-05-01 15:36:55', 'Active', NULL),
+(11, 'mintnoosu', 'febby@example.com', '0912345789', '$2y$10$tUFQU4SM1jBYp6suVc6.XeYnscf/LZoY4JNERhjIYh93H56HHheN6', 'Buyer', 'Sydney', 'Febby', '', '2026-05-16 21:43:48', 'Active', NULL),
+(12, 'fiona', 'fiona@example.com', '09123456789', '$2y$10$DwgkWaYYeJ9imul8apS4Vu6W4tfMf.k.gOhk13sir/4U0ezLfEzTS', 'Buyer', 'Sydney', 'Fiona', '', '2026-05-16 22:49:30', 'Active', NULL);
 
 --
 -- Indexes for dumped tables
@@ -286,6 +306,7 @@ ALTER TABLE `farmers_contact`
 --
 ALTER TABLE `livestock`
   ADD PRIMARY KEY (`livestock_id`),
+  ADD UNIQUE KEY `tag_number` (`tag_number`),
   ADD KEY `farmer_id` (`farmer_id`),
   ADD KEY `location_id` (`location_id`),
   ADD KEY `livestock_ibfk_1` (`category_id`),
@@ -347,7 +368,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `farmers`
 --
 ALTER TABLE `farmers`
-  MODIFY `farmer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `farmer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `farmers_contact`
@@ -359,37 +380,37 @@ ALTER TABLE `farmers_contact`
 -- AUTO_INCREMENT for table `livestock`
 --
 ALTER TABLE `livestock`
-  MODIFY `livestock_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `livestock_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `livestock_weight`
 --
 ALTER TABLE `livestock_weight`
-  MODIFY `weight_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `weight_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
-  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
